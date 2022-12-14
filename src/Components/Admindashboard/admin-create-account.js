@@ -1,41 +1,33 @@
 import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
-import Navbar from "./NavBar";
 import { useState, useEffect } from "react";
 import Axios from "axios";
-import NavbarSignedIn from "./Navbar-SignedIn";
-import ClientDetails from "./clientDetails";
+import Navbar from "../NavBar";
+import NavbarSignedIn from "../Navbar-SignedIn";
 
 //Images
-import img1 from "../Assets/create-acc-vector.png";
+import img1 from "../../Assets/create-acc-vector.png";
 
 Axios.defaults.withCredentials = true;
-const CreateAccount = () => {
-//Send email
-const sendEmail = () => {
-  
-}
-
+const CreateAdminAccount = () => {
 //Create account button
 var createAccountBtn;
 
-const [checkPath, setCheckPath] = useState('/clientDetails');
+const [checkPath, setCheckPath] = useState('/admin-create-account');
 
   //Add user
   const addUser = () => {
-    sendEmail();
-
-    Axios.post("http://localhost:5000/create", {
+    Axios.post("http://localhost:5000/adminCreate", {
       name: name,
       email: email,
       password: password,
     }).then((response) => {
-      if(response.data=="A username with that email already exists! Try logging in"){
-        window.location.href="/#/create-account";
+      if(response.data=="Another admin with that email already exists! If this is you, Try logging in"){
+        window.location.href="/#/admin-create-account";
         alert(response.data);
       }
       else{
         console.log(response);
-        window.location.href="/#/login";
+        window.location.href="/#/admin-login";
       }
     });
   };
@@ -166,7 +158,7 @@ const [checkPath, setCheckPath] = useState('/clientDetails');
    const [loginStatus, setLoginStatus] = useState("false");
 
    const checkLogin= () => {
-     Axios.post("http://localhost:5000/auth", {
+     Axios.post("http://localhost:5000/authAdmin", {
        
      }).then((response) => {
          console.log(response.status);
@@ -182,47 +174,20 @@ const [checkPath, setCheckPath] = useState('/clientDetails');
 
 var NavBar;
 
-if(loginStatus == "true"){
-  NavBar = (
-    <>
-    <Router>
-      <Switch>
-        <Route exact path="/create-account">
-          <NavbarSignedIn />
-        </Route>
-      </Switch>
-    </Router>
-  </>
-  )
-}
-else{
-  NavBar = (
-    <>
-      <Router>
-        <Switch>
-          <Route exact path="/create-account">
-            <Navbar />
-          </Route>
-        </Switch>
-      </Router>
-    </>
-  )
-}
+
 console.log(loginStatus);
 
   return (
     <div onLoadStart={checkLogin} className="container-fluid account-section">
       <div class="container">
-      {NavBar}
+
       </div>
       <div class="row">
         <div class="col-lg-6">
           <div class="blueDiv">
-            <h1>Get started with ease</h1>
+            <h1>Admin account</h1>
             <p>
-              Utilize our platform to combine, contribute, and withdraw. Take
-              charge of your retirement. To begin saving, simply make a deposit
-              or transfer funds from an existing pension.
+              Monitor transactions and Performance
             </p>
           </div>
           <img
@@ -233,7 +198,7 @@ console.log(loginStatus);
         </div>
         <div class="col-lg-6 ">
           <div className="account-Form">
-            <h3>Create account to get started</h3>
+            <h3>Create Admin account</h3>
             <form
               action="handler.php"
               className="create-account-form"
@@ -254,7 +219,7 @@ console.log(loginStatus);
                 />
               </label>
               <label for="email">
-                <span>Email</span>
+                <span>Sanlam Email address</span>
                 <br />
                 <br />
                 <input
@@ -263,7 +228,7 @@ console.log(loginStatus);
                   name="email"
                   className="inputbox"
                   id="email"
-                  placeholder="Email address"
+                  placeholder="Your sanlam email address"
                   required
                 />
               </label>
@@ -297,7 +262,7 @@ console.log(loginStatus);
               </label>
               <p>
                 By creating an account you agree <br />
-                to our{" "}
+                to Sanlam{" "}
                 <a href="#" className="termsLink">
                   Terms and Privacy Policy.
                 </a>
@@ -306,7 +271,7 @@ console.log(loginStatus);
             {createAccountBtn}
             <p>
               Already have an account?{" "}
-              <Link to="/login" className="termsLink">
+              <Link to="/admin-login" className="termsLink">
                 Log In
               </Link>
             </p>
@@ -317,4 +282,4 @@ console.log(loginStatus);
   );
 };
 
-export default CreateAccount;
+export default CreateAdminAccount;

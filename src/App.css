@@ -27,6 +27,41 @@ Navbar
   }
 }
 
+.navLinkDropdown{
+  position: absolute;
+  z-index: 2;
+  background-color: #0075c9;
+  border-radius: 10px;
+  padding: 10px 0 10px 0;
+}
+
+.dropdownLinkContainer{
+  padding: 10px 25px 10px 25px;
+  background-color: #0075c9;
+  transition: background-color 1.5s cubic-bezier(0.21, 1.46, 0.76, 0.92);
+  width: 100%;
+}
+
+.dropdownLinkContainer:hover{
+  padding: 10px 25px 10px 25px;
+  background-color: #0461a4;
+  width: 100%;
+}
+
+.linkWrapper{
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
+
+.dropdownLink{
+  color: white;
+}
+
+.dropdownLink:hover{
+  color: white;
+}
+
 .nav-item {
   margin-left: 35px;
   font-size: 14px;
@@ -146,7 +181,7 @@ Landing page section II
 }
 
 .pension-offerings {
-  margin-top: -50px;
+  margin-top: 50px;
   margin-bottom: 80px;
 }
 
@@ -910,6 +945,8 @@ input:checked[class="checkBox"]::after {
 .PensionDetails-vector {
   margin-left: -120px;
   margin-top: 100px;
+  position: relative;
+  z-index: -1;
 }
 
 .inputbox option {
@@ -1401,4 +1438,268 @@ Dashboard buttons
 
 #portfolioChart{
   margin-top: 160px;
+}
+
+/*
+
+Login form
+
+*/
+
+.c-b-contact{
+  padding: 5px 20px 5px 20px;
+}
+
+/*
+  Withdraw page
+
+  */
+
+  .paymentMethod{
+    box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.276);
+    border-radius: 10px;
+    padding: 20px 30px 20px 30px;
+    background-color: #ffffff;
+    margin-top: 42px;
+    width: 90%;
+    border: 0px;
+    transition: background-color 0.6s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  }
+
+  .paymentMethod:hover{
+    box-shadow: 5px 4px 4px rgba(0, 0, 0, 0.276);
+    border-radius: 10px;
+    padding: 20px 30px 20px 30px;
+    background-color: #bbbbbb;
+    margin-top: 42px;
+    width: 90%;
+    border: 0px;
+  }
+
+  #paymentMethod{
+    width: 100%;
+  }
+
+  .paymentCheckbox{
+    position: relative;
+    z-index: 3;
+  }
+
+  /*
+
+  Pension Calculator Page
+
+  */
+
+  @media screen and (min-width: 990px){
+    div .calculatebtn{
+      margin-top: 65px;
+    }
+
+    div .calculatebtn:hover {
+      margin-top: 65px;
+    }
+  }
+
+  @media screen and (max-width: 600px){
+    div .pensionCalculatorForm{
+      margin-top: 20px;
+      padding-left: 0.5%;
+    }
+  }
+
+  #pensionCalculatorHeader{
+    padding: 120px 0 120px 0;
+    color: rgb(0, 0, 0);
+    background-image: linear-gradient(90deg, #0075c9d3, #ffc928bd), url("./Assets/pensionCalculatorImg.png");
+    background-size: contain;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+  }
+
+  .pensionCalculatorForm{
+    margin-top: 20px;
+  }
+
+  .pCalculatorParagraph{
+    margin-top: 30px;
+    font-size: 18px;
+    padding: 0 50px 0 50px;
+  }
+
+  .inputLable{
+    margin-top: 40px;
+  }
+
+.pCalc{
+  margin-top: 10px;
+}
+
+.calculatebtn {
+  width: 300px;
+  height: 40px;
+  border: 0;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  color: #444;
+  transition: background-color 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53),
+    color 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  background-color: #ffc928;
+}
+
+.calculatebtn:hover {
+  width: 300px;
+  height: 40px;
+  border: 0;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  color: #fff;
+  background-color: #0075c9;
+}
+
+.requiredField{
+  color: rgb(240, 0, 0);
+  font-size: 14px;
+  margin-top: -10px;
+}
+
+#calculatorContainer{
+  padding-bottom: 150px;
+}
+
+
+/*
+
+Contribution page
+
+*/
+
+.nextBTNSection{
+  margin-top: 50px;
+}
+
+/*
+Admin dashboard
+*/
+  
+table {
+  border: 2px solid #0075c9;
+  width: 100%;
+  height: 200px;
+  border:none;
+  border-collapse: collapse;
+}
+  
+th {
+  /* border-left: 1px solid black; */
+  text-align: center;
+}
+  
+td {
+  padding: 20px;
+  text-align: center;
+  margin: 50px;
+}
+
+table td, table th {
+  border-left: 2px solid #000;
+  border-right: 2px solid #000;
+}
+
+table td:first-child , table th:first-child {
+  border-left: none;
+}
+
+table td:last-child, table th:last-child {
+  border-right: none;
+}
+
+.dot {
+  height: 15px;
+  width: 15px;
+  background-color: #ffc928;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+}
+#updateStatus {
+  background-color: #0075c9;
+  margin-left: -0.6%;
+  border: none;
+}
+
+/*
+
+Admin DashBoard styles
+
+*/
+
+.call-to-action-admin {
+  padding: 0px 20px 0px 20px;
+  background-color: #0075c9;
+  border: none;
+  font-weight: 400;
+  margin-left: 20px;
+  color: white;
+  transition: background-color 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  margin-top: 50px;
+  border-radius: 10px;
+  height: 40px;
+}
+
+.call-to-action-admin:hover {
+  padding: 0px 20px 0px 20px;
+  background-color: #ffc928;
+  border: none;
+  font-weight: 400;
+  margin-left: 20px;
+  color: white;
+  border-radius: 10px;
+  height: 40px;
+  margin-top: 50px;
+}
+
+.searchBarSection{
+  margin-top: 100px;
+}
+
+#searchForm{
+  width: 90%;
+}
+
+.updateForm{
+  margin-left: 60px;
+}
+
+.updateContainer{
+  margin-top: 50px;
+}
+
+.adminName{
+  font-size: 14px;
+  font-weight: 400;
+}
+
+#status{
+  padding: 0;
+}
+
+.bubble{
+  background-color: #0075c9;
+  padding: 10px 20px 10px 20px;
+  color: white;
+  border-radius: 10px;
+
+}
+
+.statusLabel{
+  margin-bottom: 20px;
+}
+
+datalist {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  writing-mode: vertical-lr;
+  width: 93%;
 }

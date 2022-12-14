@@ -8,11 +8,25 @@ import PensionDetails from "./Components/pensionDetails";
 import ConfirmPage from "./Components/confirmPage";
 import UserDashboard from "./Components/userDashboard";
 import DashboardNavBar from "./Components/dashboardNavbar";
+import ContributionPage from "./Components/contributionPage";
+import NavbarSignedIn from "./Components/Navbar-SignedIn";
+import PensionDetailsLoggedIn from "./Components/pensionDetailsLoggedin";
+import Withdraw from "./Components/withdraw";
+import LogIn from "./Components/login";
+import PensionCalculator from "./Components/pensionCalculator";
+import Payment from "./Components/Payment";
+import AdminDashboard from "./Components/Admindashboard/adminDashboard";
+import AdminDashboardNavBar from "./Components/Admindashboard/AdminDashboardnavbar";
+import CreateAdminAccount from "./Components/Admindashboard/admin-create-account";
+import AdminLogIn from "./Components/Admindashboard/admin-login";
+
+
 
 function App() {
+ 
   return (
     <>
-      <Router>
+      <Router >
         <Switch>
           <Route exact path="/">
             <Landingpage />
@@ -35,6 +49,33 @@ function App() {
           <Route exact path="/dashboardNavbar">
             <DashboardNavBar />
           </Route>
+          <Route exact path="/contributionPage">
+            <ContributionPage />
+          </Route>
+          <Route exact path="/login">
+            <LogIn />
+          </Route>
+          <Route exact path="/PensionDetailsLoggedin">
+            <PensionDetailsLoggedIn />
+          </Route>
+          <Route exact path="/withdraw">
+            <Withdraw/>
+          </Route>
+          <Route exact path="/pensionCalculator">
+            <PensionCalculator/>
+          </Route>
+          <Route exact path="/Payment">
+            <Payment />
+          </Route>
+          <Route exact path="/adminDashboard">
+            <AdminDashboard />
+          </Route>
+         <Route exact path="/admin-create-account">
+          <CreateAdminAccount />
+         </Route>
+         <Route exact path="/admin-login">
+          <AdminLogIn />
+         </Route>
         </Switch>
       </Router>
     </>

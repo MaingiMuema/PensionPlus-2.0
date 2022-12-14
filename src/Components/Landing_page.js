@@ -1,7 +1,10 @@
 import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Navbar from "./NavBar";
+import NavbarSignedIn from "./Navbar-SignedIn";
 import "semantic-ui-css/semantic.min.css";
 import { Icon } from "semantic-ui-react";
+import Axios from "axios";
+import { useEffect, useState } from "react";
 
 //Images
 
@@ -90,19 +93,84 @@ if (screenWidth <= 900) {
   );
 }
 
-const Landingpage = () => {
+function Landingpage() {
+    //Login status
+const [loginStatus, setLoginStatus] = useState("false");
+
+const checkLogin= () => {
+  Axios.post("http://localhost:5000/auth", {
+    
+  }).then((response) => {
+    
+      if(response.data.message == 'Not authenticated'){
+        
+      }
+      else{
+        setLoginStatus("true");
+      }
+
+  });
+};
+
+console.log(loginStatus);
+
+
+var NavBar;
+var getStartedBtn;
+var combineBtnLandingPage;
+
+if(loginStatus == "true"){
+  NavBar = (
+    <>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <NavbarSignedIn />
+        </Route>
+      </Switch>
+    </Router>
+  </>
+  )
+  getStartedBtn = (
+  <Link to="/pensionDetails">
+    <button>Get started</button>
+  </Link>
+  )
+
+  combineBtnLandingPage = (<Link to="/pensionDetailsLoggedin">
+  <button class="call-to-action">Combine with PensionPlus</button>
+</Link>)
+}
+else{
+  NavBar = (
+    <>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Navbar />
+          </Route>
+        </Switch>
+      </Router>
+    </>
+  )
+
+  getStartedBtn = (
+  <Link to="create-account">
+  <button>Get started</button>
+</Link>
+)
+
+combineBtnLandingPage = (<Link to="/create-account">
+  <button class="call-to-action">Combine with PensionPlus</button>
+</Link>)
+}
+
+
+
   return (
-    <div class="container-fluid">
+    <div onLoad={checkLogin} class="container-fluid">
       <div className="container">
-        <>
-          <Router>
-            <Switch>
-              <Route exact path="/">
-                <Navbar />
-              </Route>
-            </Switch>
-          </Router>
-        </>
+        {NavBar}
         <div className="container">
           <div className="row">
             <div className="col-lg-6 hero-section-wording">
@@ -113,9 +181,7 @@ const Landingpage = () => {
                 get ready to enjoy retirement. Combine, Contribute and withdraw
                 online.
               </p>
-              <Link to="/create-account">
-                <button>Get started</button>
-              </Link>
+              {getStartedBtn}
               <img className="bonusimg" src={img2} alt="offer image" />
             </div>
             <div className="col-lg-6">
@@ -206,9 +272,7 @@ const Landingpage = () => {
                 objectives, change how you contribute, and finally get your
                 finances back on track.
               </p>
-              <Link to="/create-account">
-                <button class="call-to-action">Combine with PensionPlus</button>
-              </Link>
+             {combineBtnLandingPage}
             </div>
           </div>
         </div>
@@ -734,6 +798,8 @@ const Landingpage = () => {
           </div>
         </div>
       </footer>
+
+
     </div>
   );
 };

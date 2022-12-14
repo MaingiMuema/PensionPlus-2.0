@@ -1,7 +1,8 @@
 import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
 import NavbarSignedIn from "./Navbar-SignedIn";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import $ from "jquery";
+import  Axios  from "axios";
 
 import "semantic-ui-css/semantic.min.css";
 import { Icon } from "semantic-ui-react";
@@ -10,27 +11,92 @@ import { Icon } from "semantic-ui-react";
 import img1 from "../Assets/confirmPageVector.png";
 
 const ConfirmPage = () => {
+    //Providers List
+    const [providerList, setProviderList] = useState([]);
+    
+
+  //Get pension providers
+   const pensionProvider = () => {
+    scrollWin();
+
+    Axios.post("http://localhost:5000/pensionProvider", {      
+    }).then((response) => {
+      console.log(response.data.message);
+      if(response.data.message == "Providers are missing."){
+        setProviderList([
+          {
+            PensionProvider: 'You haven\'t selected any Pension Providers!'
+          }
+        ])
+      }
+      else{
+        setProviderList(response.data.message);
+      }      
+    });
+  };
+
+  //Transfer status
+  const [transferStatus, setTransferStatus] = useState(1);
+
+    //Update status table
+    const queueTransfer = () => {
+      scrollWin();
+      setTransferStatus(1);
+      Axios.post("http://localhost:5000/queueTransfer", { 
+      transferStatus: transferStatus,  
+      
+      }).then((response) => {
+        console.log(response.data.message);
+        setProviderList(response.data.message);
+        
+      });
+    };
 
   const [checkPath, setcheckPath] = useState();
 
   const checkBtn = () =>{
     if(document.getElementById('consentInput1').checked && document.getElementById('consentInput2').checked){
-      setcheckPath("/userDashboard");
+      queueTransfer();
+      window.location.href="/#/userDashboard";
+      //setcheckPath("/userDashboard");
     }
     else{
       alert("Please agree to our terms!")
-      setcheckPath("/confirmPage");
+      window.location.href="/#/confirmPage";
   }
   }
- 
+
+  //Login status
+  const [loginStatus, setLoginStatus] = useState("false");
+
+  const checkLogin= () => {
+    Axios.post("http://localhost:5000/auth", {
+      
+    }).then((response) => {
+        console.log(response.status);
+        if(response.data.message == 'Not authenticated'){
+          window.history.go(-1);
+        }
+        else{
+          setLoginStatus("true")
+        }
+  
+    });
+  };
+
+
+//On load scroll to top
+function scrollWin() {
+  window.scrollTo(0, 0);
+}
 
   return (
-    <div className="container-fluid account-section">
+    <div onLoadCapture={checkLogin} onLoad={pensionProvider} className="container-fluid account-section">
       <div class="container">
         <>
           <Router>
             <Switch>
-              <Route exact path="/conFirmPage">
+              <Route exact path="/confirmPage">
                 <NavbarSignedIn />
               </Route>
             </Switch>
@@ -59,17 +125,15 @@ const ConfirmPage = () => {
         <div class="col-lg-6 ">
           <div className="confirm-Provider">
             <h3>Pensions to Transfer</h3>
-            <ul>
-              <li>
-                <span>Britam</span>
-              </li>
-              <li>
-                <span>NCBA</span>
-              </li>
-              <li>
-                <span>Direct Line</span>
-              </li>
-            </ul>
+            <div>
+            {
+              providerList.map(provider => 
+                  <li class="pendingTransfer">
+                    <span className="pendingTransferProviderName">{provider.providerName}</span>
+                  </li>    
+                  )
+             }
+            </div>
             <form action="handler.php" method="POST" className="completeForm">
               <div>
                 <label for="consentInput">

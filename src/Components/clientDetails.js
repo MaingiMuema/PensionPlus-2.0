@@ -8,17 +8,21 @@ import Axios from "axios";
 
 //Images
 import img1 from "../Assets/Verification illustrations.png";
-import CreateAccount from "./create-account";
 
-const ClientDetails = () => {
+const ClientDetails = (props) => {
+
+  var name = props.name;
+  console.log(name);
+
+
   const addDetails = () => {
     Axios.post("http://localhost:5000/userDetails", {
       phone: phone,
       id_no: id_no,
       dob: dob,
       employment_status: employment_status,
-    }).then(() => {
-      console.log("success");
+    }).then((response) => {
+      console.log(response.data.message);
     });
   };
 
@@ -137,8 +141,44 @@ const ClientDetails = () => {
   const dob = inputValue3;
   const employment_status = valueOption;
 
+  //Login status
+  const [loginStatus, setLoginStatus] = useState("false");
+
+  const checkLogin= () => {
+    Axios.post("http://localhost:5000/auth", {
+      
+    }).then((response) => {
+        if(response.data.message == 'Not authenticated'){
+          window.history.go(-1);
+        }
+        else{
+          setLoginStatus("true")
+        }
+  
+    });
+  };
+
+
+
+var backArrow;
+
+if(loginStatus == "false"){
+  backArrow = (
+    <Link to="/create-account">
+    <span>
+      <Icon className="back-arrow" name="arrow left" />
+      Back
+    </span>
+  </Link>
+  )
+}
+else{
+  
+}
+
+
   return (
-    <div className="container-fluid account-section">
+    <div onLoadCapture={checkLogin} className="container-fluid account-section">
       <div class="container">
         <>
           <Router>
@@ -149,12 +189,7 @@ const ClientDetails = () => {
             </Switch>
           </Router>
         </>
-        <Link to="/create-account">
-          <span>
-            <Icon className="back-arrow" name="arrow left" />
-            Back
-          </span>
-        </Link>
+        {backArrow}
       </div>
       <div class="row">
         <div class="col-lg-4">
